@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\CollisionData.cs" />
+    <Compile Include="Core\Maths\MathHelper.cs" />
+    <Compile Include="Core\Maths\Quaternion.cs" />
     <Compile Include="Core\Renderer.cs" />
     <Compile Include="Core\Maths\Matrix4x4.cs" />
     <Compile Include="Core\Maths\Vector2.cs" />
@@ -50,6 +52,7 @@
     <Compile Include="Core\RenderSettings.cs" />
     <Compile Include="Core\RenderScene.cs" />
     <Compile Include="Core\Ray.cs" />
+    <Compile Include="Core\ThreadRandom.cs" />
     <Compile Include="Objects\Sphere.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -19,7 +19,7 @@ namespace NoTrace.Core.Maths
             get { return ( int ) Y; }
         }
 
-        public Vector2( int Width, int Height )
+        public Vector2( int Width, int Height ) : this( )
         {
             this.X = Width;
             this.Y = Height;
