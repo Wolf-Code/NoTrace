@@ -5,31 +5,56 @@ namespace NoTrace.Core.Maths
 {
     public class Matrix4x4
     {
+        /// <summary>
+        /// The matrix's data.
+        /// </summary>
         public float [ , ] Data { private set; get; }
 
+        /// <summary>
+        /// The identity matrix.
+        /// </summary>
         public static Matrix4x4 Identity { private set; get; }
+
         private const int Dimensions = 4;
 
+        /// <summary>
+        /// Retrieves the matrix's data at a given X,Y combination.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public float this[ int x, int y ]
         {
             get { return this.Data[ x, y ]; }
         }
 
+        /// <summary>
+        /// The vector pointing to the right of the matrix.
+        /// </summary>
         public Vector3 Right
         {
             get { return new Vector3( this[ 0, 0 ], this[ 0, 1 ], this[ 0, 2 ] ); }
         }
 
+        /// <summary>
+        /// The vector pointing up from the vector.
+        /// </summary>
         public Vector3 Up
         {
             get { return new Vector3( this[ 1, 0 ], this[ 1, 1 ], this[ 1, 2 ] ); }
         }
 
+        /// <summary>
+        /// The vector pointing forward from the vector.
+        /// </summary>
         public Vector3 Forward
         {
             get { return new Vector3( this[ 2, 0 ], this[ 2, 1 ], this[ 2, 2 ] ); }
         }
 
+        /// <summary>
+        /// Creates the identity matrix in the static constructor.
+        /// </summary>
         static Matrix4x4( )
         {
             float [ , ] Temp = new float[ Dimensions, Dimensions ];
@@ -39,6 +64,10 @@ namespace NoTrace.Core.Maths
             Identity = new Matrix4x4( Temp );
         }
 
+        /// <summary>
+        /// Creates a 4x4 matrix from a float array.
+        /// </summary>
+        /// <param name="Data"></param>
         public Matrix4x4( params float [ ] Data )
         {
             if ( Data.Length % Dimensions != 0 )
@@ -56,6 +85,10 @@ namespace NoTrace.Core.Maths
             this.Data = Temp;
         }
 
+        /// <summary>
+        /// Creates a 4x4 matrix from a 2 dimensional float array.
+        /// </summary>
+        /// <param name="Data"></param>
         public Matrix4x4( float [ , ] Data )
         {
             if ( Data.GetLength( 0 ) != Data.GetLength( 1 ) && Data.GetLength( 0 ) != Dimensions )
@@ -64,6 +97,11 @@ namespace NoTrace.Core.Maths
             this.Data = Data;
         }
 
+        /// <summary>
+        /// Creates a translation matrix.
+        /// </summary>
+        /// <param name="Translation"></param>
+        /// <returns></returns>
         public static Matrix4x4 CreateTranslation( Vector3 Translation )
         {
             return new Matrix4x4(
@@ -73,6 +111,11 @@ namespace NoTrace.Core.Maths
                 0, 0, 0, 1 );
         }
 
+        /// <summary>
+        /// Creates a scaling matrix.
+        /// </summary>
+        /// <param name="Scale"></param>
+        /// <returns></returns>
         public static Matrix4x4 CreateScale( Vector3 Scale )
         {
             return new Matrix4x4(
@@ -81,6 +124,12 @@ namespace NoTrace.Core.Maths
                 0, 0, Scale.Z, 0 );
         }
 
+        /// <summary>
+        /// Creates a rotation matrix on the X-axis.
+        /// </summary>
+        /// <param name="Angle"></param>
+        /// <param name="Radians"></param>
+        /// <returns></returns>
         public static Matrix4x4 CreateRotationX( float Angle, bool Radians = true )
         {
             float Sin = MathHelper.Sin( Angle, Radians );
@@ -93,6 +142,12 @@ namespace NoTrace.Core.Maths
                 );
         }
 
+        /// <summary>
+        /// Creates a rotation matrix on the Y-axis.
+        /// </summary>
+        /// <param name="Angle"></param>
+        /// <param name="Radians"></param>
+        /// <returns></returns>
         public static Matrix4x4 CreateRotationY( float Angle, bool Radians = true )
         {
             float Sin = MathHelper.Sin( Angle, Radians );
@@ -106,6 +161,12 @@ namespace NoTrace.Core.Maths
                 );
         }
 
+        /// <summary>
+        /// Creates a rotation matrix on the Z-axis.
+        /// </summary>
+        /// <param name="Angle"></param>
+        /// <param name="Radians"></param>
+        /// <returns></returns>
         public static Matrix4x4 CreateRotationZ( float Angle, bool Radians = true )
         {
             float Sin = MathHelper.Sin( Angle, Radians );
@@ -119,6 +180,14 @@ namespace NoTrace.Core.Maths
                 );
         }
 
+        /// <summary>
+        /// Creates a rotation matrix based on a pitch, yaw and roll combination.
+        /// </summary>
+        /// <param name="Pitch"></param>
+        /// <param name="Yaw"></param>
+        /// <param name="Roll"></param>
+        /// <param name="Radians"></param>
+        /// <returns></returns>
         public static Matrix4x4 CreateRotation( float Pitch, float Yaw, float Roll, bool Radians = true )
         {
             return CreateRotationX( Pitch, Radians ) *
@@ -126,7 +195,15 @@ namespace NoTrace.Core.Maths
                    CreateRotationZ( Roll, Radians );
         }
 
-        public static Matrix4x4 CreateOrtho(float Width, float Height, float Znear, float Zfar)
+        /// <summary>
+        /// Creates an orthographic matrix.
+        /// </summary>
+        /// <param name="Width"></param>
+        /// <param name="Height"></param>
+        /// <param name="Znear"></param>
+        /// <param name="Zfar"></param>
+        /// <returns></returns>
+        public static Matrix4x4 CreateOrtho( float Width, float Height, float Znear, float Zfar )
         {
             return new Matrix4x4(
                 1f / Width, 0, 0, 0,
@@ -135,6 +212,14 @@ namespace NoTrace.Core.Maths
                 0, 0, 0, 1 );
         }
 
+        /// <summary>
+        /// Creates a projection matrix.
+        /// </summary>
+        /// <param name="FovX"></param>
+        /// <param name="FovY"></param>
+        /// <param name="Znear"></param>
+        /// <param name="Zfar"></param>
+        /// <returns></returns>
         public static Matrix4x4 CreateProjection( float FovX, float FovY, float Znear, float Zfar )
         {
             return new Matrix4x4(
@@ -163,7 +248,7 @@ namespace NoTrace.Core.Maths
             return new Matrix4x4( Temp );
         }
 
-        public static Vector3 operator*( Vector3 V, Matrix4x4 M )
+        public static Vector3 operator *( Vector3 V, Matrix4x4 M )
         {
             float [ ] VectorMatrix = { V.X, V.Y, V.Z, 1 };
 

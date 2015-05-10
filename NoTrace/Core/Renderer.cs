@@ -3,7 +3,7 @@
     /// <summary>
     /// The base class which all renderers inherit from.
     /// </summary>
-    abstract class Renderer
+    public abstract class Renderer
     {
         /// <summary>
         /// The settings with which to render each frame.
@@ -46,6 +46,18 @@
         /// <summary>
         /// Renders a single frame using the renderer's data.
         /// </summary>
-        public abstract void Render( );
+        public RendererImage Render( )
+        {
+            RendererImage Image = new RendererImage( this.Settings.Resolution );
+
+            this.PerformRender( ref Image );
+
+            return Image;
+        }
+
+        /// <summary>
+        /// Performs the actual rendering.
+        /// </summary>
+        protected abstract void PerformRender( ref RendererImage Result );
     }
 }
