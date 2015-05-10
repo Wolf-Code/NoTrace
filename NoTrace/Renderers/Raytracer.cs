@@ -19,7 +19,7 @@ namespace NoTrace.Renderers
     {
         protected override void PerformRender( ref RendererImage Image )
         {
-            Ray R = new Ray { Start = new Vector3( 0, 0, 0 ), Direction = Vector3.UnitZ * -1 };
+            Ray R = this.Camera.GetRayFromPixel( 0, 0 );
             CollisionData Hit =
                 this.Scene.Objects.Select( O => O.CollidesWith( R ) )
                     .Where( O => O.Hit )

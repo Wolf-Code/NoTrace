@@ -14,6 +14,11 @@
         /// </summary>
         public RenderScene Scene { private set; get; }
 
+        protected RenderCamera Camera
+        {
+            private set; get;
+        }
+
         /// <summary>
         /// Sets the renderer's new settings.
         /// </summary>
@@ -21,6 +26,7 @@
         public void SetData( RenderSettings NewSettings )
         {
             this.Settings = NewSettings;
+            this.Camera = new RenderCamera( NewSettings );
         }
 
         /// <summary>
