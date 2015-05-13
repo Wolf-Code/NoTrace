@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using NoTrace.Core;
 using NoTrace.Core.Maths;
+using NoTrace.Objects;
 using NoTrace.Renderers;
 using Color = NoTrace.Core.Color;
 
@@ -14,6 +15,12 @@ namespace NoTrace
         private static void Main( string [ ] args )
         {
             RenderScene Scene = new RenderScene( );
+            Sphere S = new Sphere
+            {
+                Position = new Vector3( 0, 0, -40 ),
+                Radius = 1
+            };
+            Scene.AddRendererObject( S );
             RenderSettings Settings = new RaytracerSettings( );
 
             Renderer R = new Raytracer( );

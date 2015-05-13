@@ -12,6 +12,6 @@ namespace NoTrace.Core
         /// <summary>
         /// The field of view with which to render.
         /// </summary>
-        public float FieldOfView { set; get; }
+        public float FieldOfView { set; get; } = 35;
     }
 }

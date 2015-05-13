@@ -9,5 +9,8 @@ namespace NoTrace.Core
         public Vector3 Normal;
         public float Distance;
         public RendererObject Object;
+
+        public override string ToString( ) => $"{Hit}, {Position}, {Normal}, {Distance}, {Object}";
+
     }
 }

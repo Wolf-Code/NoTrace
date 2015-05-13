@@ -14,10 +14,7 @@
         /// </summary>
         public RenderScene Scene { private set; get; }
 
-        protected RenderCamera Camera
-        {
-            private set; get;
-        }
+        protected RenderCamera Camera { private set; get; }
 
         /// <summary>
         /// Sets the renderer's new settings.

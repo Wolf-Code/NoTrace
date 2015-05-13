@@ -19,17 +19,18 @@ namespace NoTrace.Renderers
     {
         protected override void PerformRender( ref RendererImage Image )
         {
-            Ray R = this.Camera.GetRayFromPixel( 0, 0 );
-            CollisionData Hit =
-                this.Scene.Objects.Select( O => O.CollidesWith( R ) )
-                    .Where( O => O.Hit )
-                    .OrderBy( O => O.Distance )
-                    .FirstOrDefault( );
+            for ( int X = 0; X < this.Settings.Resolution.X; X++ )
+                for ( int Y = 0; Y < this.Settings.Resolution.Y; Y++ )
+                {
+                    Ray R = this.Camera.GetRayFromPixel( X, Y );
+                    CollisionData Hit =
+                        this.Scene.Objects.Select( O => O.CollidesWith( R ) )
+                            .Where( O => O.Hit )
+                            .OrderBy( O => O.Distance )
+                            .FirstOrDefault( );
 
-            if ( !Hit.Hit )
-                Image.SetPixel( 0, 0, new Color( ) { G = 255 } );
-            else
-                Image.SetPixel( 0, 0, new Color( ) { R = 255 } );
+                    Image.SetPixel( X, Y, Hit.Hit ? new Color( 255, 0, 0 ) : new Color( 0, 255, 0 ) );
+                }
         }
     }
 }
